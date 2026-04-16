@@ -50,11 +50,6 @@
 
   <!-- Right-side decorative: six harness chips forming a harness chain -->
   <g transform="translate(1160 110)" font-family="'Inter','SF Pro Text','Avenir Next',sans-serif" font-size="16" font-weight="600">
-    <!-- connector curves -->
-    <path d="M90 40 Q 180 20, 270 40" fill="none" stroke="#1f3d63" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="3 4"/>
-    <path d="M90 130 Q 180 150, 270 130" fill="none" stroke="#1f3d63" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="3 4"/>
-    <path d="M90 220 Q 180 200, 270 220" fill="none" stroke="#1f3d63" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="3 4"/>
-
     <!-- chip: openclaw -->
     <g>
       <rect x="0" y="18" width="180" height="44" rx="22" fill="#fff7eb" stroke="#d97706" stroke-width="1.5"/>
@@ -97,5 +92,5 @@
 
   <!-- Bottom-left footer line -->
   <rect x="100" y="390" width="1440" height="1" fill="#1f3d63" fill-opacity="0.12"/>
-  <text x="100" y="415" font-family="'Inter','SF Pro Text',sans-serif" font-size="14" fill="#5b6474">pip install harness-bench &#160;&#8226;&#160; same 5-layer recording as ClawBench &#160;&#8226;&#160; cloud harnesses opt-in</text>
+  <text x="100" y="415" font-family="'Inter','SF Pro Text',sans-serif" font-size="14" fill="#5b6474">uv tool install harness-bench &amp;&amp; harness-bench &#160;&#8226;&#160; same 5-layer recording as ClawBench &#160;&#8226;&#160; cloud harnesses opt-in</text>
 </svg>
