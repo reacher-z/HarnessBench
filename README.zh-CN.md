@@ -96,9 +96,9 @@ export COZE_API_TOKEN=...                   # 必须和 URL 一起设置
 <!-- Placeholder: replace with full arXiv block once preprint is submitted. -->
 
 ```bibtex
-@misc{harnessbench2026,
+@misc{zhang2026harnessbench,
   title        = {HarnessBench: Comparing Agentic Harnesses on Everyday Online Tasks},
-  author       = {Reacher and contributors},
+  author       = {Yuxuan Zhang and Yubo Wang and Yipeng Zhu and Penghui Du and Junwen Miao and Xuan Lu and Wendong Xu and Yunzhuo Hao and Songcheng Cai and Xiaochen Wang and Huaisong Zhang and Xian Wu and Yi Lu and Minyi Lei and Kai Zou and Huifeng Yin and Ping Nie and Liang Chen and Dongfu Jiang and Wenhu Chen and Kelsey R. Allen},
   year         = {2026},
   note         = {Preprint in preparation},
   howpublished = {\url{https://github.com/reacher-z/HarnessBench}}
