@@ -92,5 +92,5 @@
 
   <!-- Bottom-left footer line -->
   <rect x="100" y="390" width="1440" height="1" fill="#1f3d63" fill-opacity="0.12"/>
-  <text x="100" y="415" font-family="'Inter','SF Pro Text',sans-serif" font-size="14" fill="#5b6474">uv tool install harness-bench &amp;&amp; harness-bench &#160;&#8226;&#160; same 5-layer recording as ClawBench &#160;&#8226;&#160; cloud harnesses opt-in</text>
+  <text x="100" y="415" font-family="'Inter','SF Pro Text',sans-serif" font-size="14" fill="#5b6474">uv tool install harnessbench &amp;&amp; harnessbench &#160;&#8226;&#160; same 5-layer recording as ClawBench &#160;&#8226;&#160; cloud harnesses opt-in</text>
 </svg>

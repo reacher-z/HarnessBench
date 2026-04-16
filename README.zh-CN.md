@@ -41,7 +41,7 @@
 <a href="#-human-quick-start"><img src="https://img.shields.io/badge/%E4%B8%80%E8%A1%8C%E5%91%BD%E4%BB%A4%E8%BF%90%E8%A1%8C-D97706?style=for-the-badge&labelColor=D97706&logoColor=white&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzYgNTEyIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMjYzLjQtMjdMMjc4LjIgOS44IDMxNSAyNC42YzMgMS4yIDUgNC4yIDUgNy40cy0yIDYuMi01IDcuNEwyNzguMiA1NC4yIDI2My40IDkxYy0xLjIgMy00LjIgNS03LjQgNXMtNi4yLTItNy40LTVMMjMzLjggNTQuMiAxOTcgMzkuNGMtMy0xLjItNS00LjItNS03LjRzMi02LjIgNS03LjRMMjMzLjggOS44IDI0OC42LTI3YzEuMi0zIDQuMi01IDcuNC01czYuMiAyIDcuNCA1ek0xMTAuNyA0MS43bDIxLjUgNTAuMSA1MC4xIDIxLjVjNS45IDIuNSA5LjcgOC4zIDkuNyAxNC43cy0zLjggMTIuMi05LjcgMTQuN2wtNTAuMSAyMS41LTIxLjUgNTAuMWMtMi41IDUuOS04LjMgOS43LTE0LjcgOS43cy0xMi4yLTMuOC0xNC43LTkuN0w1OS44IDE2NC4yIDkuNyAxNDIuN0MzLjggMTQwLjIgMCAxMzQuNCAwIDEyOHMzLjgtMTIuMiA5LjctMTQuN0w1OS44IDkxLjggODEuMyA0MS43QzgzLjggMzUuOCA4OS42IDMyIDk2IDMyczEyLjIgMy44IDE0LjcgOS43ek00NjQgMzA0YzYuNCAwIDEyLjIgMy44IDE0LjcgOS43bDIxLjUgNTAuMSA1MC4xIDIxLjVjNS45IDIuNSA5LjcgOC4zIDkuNyAxNC43cy0zLjggMTIuMi05LjcgMTQuN2wtNTAuMSAyMS41LTIxLjUgNTAuMWMtMi41IDUuOS04LjMgOS43LTE0LjcgOS43cy0xMi4yLTMuOC0xNC43LTkuN2wtMjEuNS01MC4xLTUwLjEtMjEuNWMtNS45LTIuNS05LjctOC4zLTkuNy0xNC43czMuOC0xMi4yIDkuNy0xNC43bDUwLjEtMjEuNSAyMS41LTUwLjFjMi41LTUuOSA4LjMtOS43IDE0LjctOS43ek00NjAgMGMxMSAwIDIxLjYgNC40IDI5LjUgMTIuMmw0Mi4zIDQyLjNDNTM5LjYgNjIuNCA1NDQgNzMgNTQ0IDg0cy00LjQgMjEuNi0xMi4yIDI5LjVsLTg4LjIgODguMi0xMDEuMy0xMDEuMyA4OC4yLTg4LjJDNDM4LjQgNC40IDQ0OSAwIDQ2MCAwek00NC4yIDM5OC41TDMwOC40IDEzNC4zIDQwOS43IDIzNS42IDE0NS41IDQ5OS44QzEzNy42IDUwNy42IDEyNyA1MTIgMTE2IDUxMnMtMjEuNi00LjQtMjkuNS0xMi4yTDQ0LjIgNDU3LjVDMzYuNCA0NDkuNiAzMiA0MzkgMzIgNDI4czQuNC0yMS42IDEyLjItMjkuNXoiLz48L3N2Zz4=" alt="一行命令运行"></a>
 
 ```bash
-uv tool install harness-bench && harness-bench
+uv tool install harnessbench && harnessbench
 ```
 
 <sub><i>安装 &rarr; 列出 &rarr; 运行。 &nbsp; 复用 ClawBench 的流水线。 &nbsp; 云端 Harness 通过环境变量可选启用。</i></sub>
@@ -100,12 +100,12 @@ uv tool install harness-bench && harness-bench
 
 ```bash
 # 方式 A -- PyPI 安装（推荐）
-uv tool install harness-bench && harness-bench
+uv tool install harnessbench && harnessbench
 ```
 
 ```bash
 # 方式 B -- 克隆仓库（贡献者 / 新增 harness）
-git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harness-bench
+git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harnessbench
 ```
 
 **前置依赖：** [Python 3.10+](https://python.org)、[uv](https://docs.astral.sh/uv/)，以及一个容器引擎 -- [Docker](https://www.docker.com/) **或** [Podman](https://podman.io/)。和 ClawBench 一样会自动探测；通过 `export CONTAINER_ENGINE=docker` 强制选择。
@@ -113,7 +113,7 @@ git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv
 **1. 列出已注册的 Harness：**
 
 ```bash
-harness-bench harnesses
+harnessbench harnesses
 # openclaw       ready
 # hermes         ready
 # claw-code      ready
@@ -125,7 +125,7 @@ harness-bench harnesses
 **2. 预览将要运行的 matrix**（无副作用）：
 
 ```bash
-harness-bench matrix \
+harnessbench matrix \
     --harness openclaw --harness hermes --harness browser-use \
     --model   claude-sonnet-4-6 \
     --case    001-daily-life-food-uber-eats \
@@ -135,7 +135,7 @@ harness-bench matrix \
 **3. 端到端跑一组 triple：**
 
 ```bash
-harness-bench run \
+harnessbench run \
     --harness openclaw \
     --model   claude-sonnet-4-6 \
     --case    001-daily-life-food-uber-eats
@@ -146,7 +146,7 @@ harness-bench run \
 **4. Matrix 批跑**（跑完所有合格的 triple）：
 
 ```bash
-harness-bench batch \
+harnessbench batch \
     --harness openclaw --harness hermes --harness browser-use --harness claw-code \
     --model   claude-sonnet-4-6 \
     --case    $(cat fixtures/lite.txt)
@@ -155,7 +155,7 @@ harness-bench batch \
 **5. 渲染排行榜：**
 
 ```bash
-harness-bench leaderboard --results-dir ./harness-output/
+harnessbench leaderboard --results-dir ./harness-output/
 ```
 
 <br/>
@@ -192,7 +192,7 @@ harness-bench leaderboard --results-dir ./harness-output/
 | &mdash; | `stagehand` | TBD | TBD | TBD | TBD | TBD | 云端可选 |
 | &mdash; | `coze-studio` | TBD | TBD | TBD | TBD | TBD | 云端可选 |
 
-<sub><i>分区：<code>(harness, model, category)</code>。在本地 <code>harness-bench leaderboard</code> 就能渲染自己的。</i></sub>
+<sub><i>分区：<code>(harness, model, category)</code>。在本地 <code>harnessbench leaderboard</code> 就能渲染自己的。</i></sub>
 
 <br/>
 
@@ -225,7 +225,7 @@ harness = browser-use   ──►  ./harness-output/browser-use/claude-sonnet-4-
 
 ```
  ┌─────────────────────────────────────────────────────────┐
- │  harness-bench CLI                                      │
+ │  harnessbench CLI                                      │
  │  (matrix 展开、凭证门禁、排行榜)                          │
  └───────────────────────┬─────────────────────────────────┘
                          │
@@ -261,19 +261,19 @@ harness = browser-use   ──►  ./harness-output/browser-use/claude-sonnet-4-
 
 ```bash
 # 列出 + 门禁
-harness-bench harnesses
+harnessbench harnesses
 
 # Matrix 预览（无副作用）
-harness-bench matrix --harness openclaw -h hermes -m claude-sonnet-4-6 -c 001-daily-life-food-uber-eats
+harnessbench matrix --harness openclaw -h hermes -m claude-sonnet-4-6 -c 001-daily-life-food-uber-eats
 
 # 单次运行
-harness-bench run --harness openclaw --model claude-sonnet-4-6 --case 001-daily-life-food-uber-eats
+harnessbench run --harness openclaw --model claude-sonnet-4-6 --case 001-daily-life-food-uber-eats
 
 # 批跑（matrix 展开，跳过不合格的，跑剩下的）
-harness-bench batch -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
+harnessbench batch -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
 
 # 渲染排行榜 markdown
-harness-bench leaderboard --results-dir ./harness-output/
+harnessbench leaderboard --results-dir ./harness-output/
 ```
 
 <br/>
@@ -285,7 +285,7 @@ harness-bench leaderboard --results-dir ./harness-output/
 ```
  1. 跑 Harness（batch）           2. 评测（clawbench eval）
  ─────────────────────────         ────────────────────────────────
- harness-bench batch ...    ──►   复用 DOM-match + LLM judge
+ harnessbench batch ...    ──►   复用 DOM-match + LLM judge
  产出 harness-output/              （rubric 和 prompt 都和 ClawBench
    包含五层录制                      逐字一致）
 ```

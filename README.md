@@ -41,7 +41,7 @@
 <a href="#-human-quick-start"><img src="https://img.shields.io/badge/Run%20in%20one%20line%20of%20code-D97706?style=for-the-badge&labelColor=D97706&logoColor=white&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzYgNTEyIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMjYzLjQtMjdMMjc4LjIgOS44IDMxNSAyNC42YzMgMS4yIDUgNC4yIDUgNy40cy0yIDYuMi01IDcuNEwyNzguMiA1NC4yIDI2My40IDkxYy0xLjIgMy00LjIgNS03LjQgNXMtNi4yLTItNy40LTVMMjMzLjggNTQuMiAxOTcgMzkuNGMtMy0xLjItNS00LjItNS03LjRzMi02LjIgNS03LjRMMjMzLjggOS44IDI0OC42LTI3YzEuMi0zIDQuMi01IDcuNC01czYuMiAyIDcuNCA1ek0xMTAuNyA0MS43bDIxLjUgNTAuMSA1MC4xIDIxLjVjNS45IDIuNSA5LjcgOC4zIDkuNyAxNC43cy0zLjggMTIuMi05LjcgMTQuN2wtNTAuMSAyMS41LTIxLjUgNTAuMWMtMi41IDUuOS04LjMgOS43LTE0LjcgOS43cy0xMi4yLTMuOC0xNC43LTkuN0w1OS44IDE2NC4yIDkuNyAxNDIuN0MzLjggMTQwLjIgMCAxMzQuNCAwIDEyOHMzLjgtMTIuMiA5LjctMTQuN0w1OS44IDkxLjggODEuMyA0MS43QzgzLjggMzUuOCA4OS42IDMyIDk2IDMyczEyLjIgMy44IDE0LjcgOS43ek00NjQgMzA0YzYuNCAwIDEyLjIgMy44IDE0LjcgOS43bDIxLjUgNTAuMSA1MC4xIDIxLjVjNS45IDIuNSA5LjcgOC4zIDkuNyAxNC43cy0zLjggMTIuMi05LjcgMTQuN2wtNTAuMSAyMS41LTIxLjUgNTAuMWMtMi41IDUuOS04LjMgOS43LTE0LjcgOS43cy0xMi4yLTMuOC0xNC43LTkuN2wtMjEuNS01MC4xLTUwLjEtMjEuNWMtNS45LTIuNS05LjctOC4zLTkuNy0xNC43czMuOC0xMi4yIDkuNy0xNC43bDUwLjEtMjEuNSAyMS41LTUwLjFjMi41LTUuOSA4LjMtOS43IDE0LjctOS43ek00NjAgMGMxMSAwIDIxLjYgNC40IDI5LjUgMTIuMmw0Mi4zIDQyLjNDNTM5LjYgNjIuNCA1NDQgNzMgNTQ0IDg0cy00LjQgMjEuNi0xMi4yIDI5LjVsLTg4LjIgODguMi0xMDEuMy0xMDEuMyA4OC4yLTg4LjJDNDM4LjQgNC40IDQ0OSAwIDQ2MCAwek00NC4yIDM5OC41TDMwOC40IDEzNC4zIDQwOS43IDIzNS42IDE0NS41IDQ5OS44QzEzNy42IDUwNy42IDEyNyA1MTIgMTE2IDUxMnMtMjEuNi00LjQtMjkuNS0xMi4yTDQ0LjIgNDU3LjVDMzYuNCA0NDkuNiAzMiA0MzkgMzIgNDI4czQuNC0yMS42IDEyLjItMjkuNXoiLz48L3N2Zz4=" alt="Run in one line of code"></a>
 
 ```bash
-uv tool install harness-bench && harness-bench
+uv tool install harnessbench && harnessbench
 ```
 
 <sub><i>Install &rarr; List &rarr; Run. &nbsp; Reuses ClawBench's pipeline. &nbsp; Cloud harnesses opt-in via env vars.</i></sub>
@@ -101,12 +101,12 @@ Point your coding agent (Claude Code, Cursor, Copilot, etc.) at [`AGENTS.md`](AG
 
 ```bash
 # Option A -- PyPI install (recommended)
-uv tool install harness-bench && harness-bench
+uv tool install harnessbench && harnessbench
 ```
 
 ```bash
 # Option B -- Clone the repo (for contributors / adding a harness)
-git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harness-bench
+git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harnessbench
 ```
 
 **Prerequisites:** [Python 3.10+](https://python.org), [uv](https://docs.astral.sh/uv/), and a container engine -- [Docker](https://www.docker.com/) **or** [Podman](https://podman.io/). Same engine detection as ClawBench; force one with `export CONTAINER_ENGINE=docker`.
@@ -114,7 +114,7 @@ git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv
 **1. List registered harnesses:**
 
 ```bash
-harness-bench harnesses
+harnessbench harnesses
 # openclaw       ready
 # hermes         ready
 # claw-code      ready
@@ -126,7 +126,7 @@ harness-bench harnesses
 **2. Preview a matrix** (no side effects):
 
 ```bash
-harness-bench matrix \
+harnessbench matrix \
     --harness openclaw --harness hermes --harness browser-use \
     --model   claude-sonnet-4-6 \
     --case    001-daily-life-food-uber-eats \
@@ -136,7 +136,7 @@ harness-bench matrix \
 **3. Run one triple end-to-end:**
 
 ```bash
-harness-bench run \
+harnessbench run \
     --harness openclaw \
     --model   claude-sonnet-4-6 \
     --case    001-daily-life-food-uber-eats
@@ -147,7 +147,7 @@ Results land in `./harness-output/<harness>/<model>/<case>-<timestamp>/` with th
 **4. Matrix batch** (all eligible triples):
 
 ```bash
-harness-bench batch \
+harnessbench batch \
     --harness openclaw --harness hermes --harness browser-use --harness claw-code \
     --model   claude-sonnet-4-6 \
     --case    $(cat fixtures/lite.txt)
@@ -156,7 +156,7 @@ harness-bench batch \
 **5. Render the leaderboard:**
 
 ```bash
-harness-bench leaderboard --results-dir ./harness-output/
+harnessbench leaderboard --results-dir ./harness-output/
 ```
 
 <br/>
@@ -168,7 +168,7 @@ harness-bench leaderboard --results-dir ./harness-output/
 For six harnesses on Lite you're looking at roughly **120 triples** (6 harnesses x 20 tasks); cloud-opt-in harnesses auto-skip if credentials are absent so the local-only cost is **80 triples**.
 
 ```bash
-harness-bench batch \
+harnessbench batch \
     --harness openclaw -h hermes -h browser-use -h claw-code \
     --model   claude-sonnet-4-6 \
     --case    $(cat fixtures/lite.txt)
@@ -249,7 +249,7 @@ Cloud harnesses are **opt-in**: without credentials they appear in the matrix as
 | &mdash; | `stagehand` | TBD | TBD | TBD | TBD | TBD | cloud-opt-in |
 | &mdash; | `coze-studio` | TBD | TBD | TBD | TBD | TBD | cloud-opt-in |
 
-<sub><i>Partitioning: <code>(harness, model, category)</code>. Run <code>harness-bench leaderboard</code> locally to render your own.</i></sub>
+<sub><i>Partitioning: <code>(harness, model, category)</code>. Run <code>harnessbench leaderboard</code> locally to render your own.</i></sub>
 
 <br/>
 
@@ -282,7 +282,7 @@ All three land the **same five-layer bundle** (recording.mp4, screenshots, actio
 
 ```
  ┌─────────────────────────────────────────────────────────┐
- │  harness-bench CLI                                      │
+ │  harnessbench CLI                                      │
  │  (matrix expansion, credential gating, leaderboard)     │
  └───────────────────────┬─────────────────────────────────┘
                          │
@@ -319,19 +319,19 @@ Each harness ships its own `Dockerfile` (3-file adapter: `Dockerfile` + `setup.s
 
 ```bash
 # List and gate
-harness-bench harnesses
+harnessbench harnesses
 
 # Matrix preview (no side effects)
-harness-bench matrix --harness openclaw -h hermes -m claude-sonnet-4-6 -c 001-daily-life-food-uber-eats
+harnessbench matrix --harness openclaw -h hermes -m claude-sonnet-4-6 -c 001-daily-life-food-uber-eats
 
 # Single run
-harness-bench run --harness openclaw --model claude-sonnet-4-6 --case 001-daily-life-food-uber-eats
+harnessbench run --harness openclaw --model claude-sonnet-4-6 --case 001-daily-life-food-uber-eats
 
 # Batch (matrix-expand, skip ineligible, run the rest)
-harness-bench batch -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
+harnessbench batch -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
 
 # Render leaderboard markdown
-harness-bench leaderboard --results-dir ./harness-output/
+harnessbench leaderboard --results-dir ./harness-output/
 ```
 
 <br/>
@@ -343,7 +343,7 @@ Evaluation is inherited verbatim from ClawBench -- post-session judge comparing 
 ```
  1. Run harnesses (batch)          2. Evaluate (clawbench eval)
  ─────────────────────────         ────────────────────────────────
- harness-bench batch ...    ──►    DOM-match + LLM judge re-used
+ harnessbench batch ...    ──►    DOM-match + LLM judge re-used
  produces harness-output/          exactly as ClawBench does it
    with 5-layer recordings         (same rubric, same prompt)
 ```

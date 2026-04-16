@@ -2,12 +2,12 @@
 
 Subcommands:
 
-``harness-bench harnesses``      list registered harnesses and their cloud-credential status
-``harness-bench matrix``         show what a matrix expansion would run (no side effects)
-``harness-bench run``            execute a single (harness, model, case) triple
-``harness-bench batch``          expand the matrix and execute each eligible triple
-``harness-bench leaderboard``    render aggregated results as markdown
-``harness-bench version``
+``harnessbench harnesses``      list registered harnesses and their cloud-credential status
+``harnessbench matrix``         show what a matrix expansion would run (no side effects)
+``harnessbench run``            execute a single (harness, model, case) triple
+``harnessbench batch``          expand the matrix and execute each eligible triple
+``harnessbench leaderboard``    render aggregated results as markdown
+``harnessbench version``
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ def harnesses_cmd() -> None:
     """List registered harnesses and which ones are gated on credentials."""
     regs = matrix_mod.discover_registrations()
     if not regs:
-        click.echo("(no harnesses registered — is harness-bench installed?)", err=True)
+        click.echo("(no harnesses registered — is harnessbench installed?)", err=True)
         sys.exit(1)
     for reg in sorted(regs, key=lambda r: r.spec.name):
         missing = reg.missing_credentials()

@@ -17,7 +17,7 @@ from __future__ import annotations
 from importlib.metadata import PackageNotFoundError, version
 
 try:
-    __version__ = version("harness-bench")
+    __version__ = version("harnessbench")
 except PackageNotFoundError:
     __version__ = "0.0.0+unknown"
 

@@ -1,6 +1,6 @@
 """OpenClaw — the reference harness, re-exported from ClawBench for consistency.
 
-This keeps ``harness-bench run --harness openclaw`` producing byte-identical
+This keeps ``harnessbench run --harness openclaw`` producing byte-identical
 traces to ``claw-bench run ... openclaw``: both resolve to the same
 Dockerfile + setup + run triple.
 """
