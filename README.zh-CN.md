@@ -2,15 +2,38 @@
 
 # HarnessBench
 
-**在日常在线任务上比较不同的 Agent Harness。**
+<p align="center">
+  <strong>在日常在线任务上比较不同的 Agent Harness</strong><br>
+  <a href="docs/adding-a-harness.md">阅读文档</a>
+  &nbsp;·&nbsp;
+  <a href="docs/harness-comparison.md">Harness 对比</a>
+  &nbsp;·&nbsp;
+  <a href="docs/cloud-harness-setup.md">云端配置</a>
+</p>
 
-[ClawBench](https://github.com/reacher-z/ClawBench) 的姊妹项目。ClawBench 固定 Harness，比较不同基础模型；**HarnessBench 固定基础模型，比较不同 Harness**。同一套评测流水线，正交维度。
+<p align="center">
+  <a href="https://github.com/reacher-z/HarnessBench/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-181717?style=flat-square&labelColor=000" /></a>
+  <a href="https://pypi.org/project/harness-bench/"><img alt="PyPI" src="https://img.shields.io/badge/pypi-harness--bench-3775A9?style=flat-square&logo=pypi&logoColor=white&labelColor=000" /></a>
+  <a href="https://www.python.org/downloads/"><img alt="Python 3.10+" src="https://img.shields.io/badge/python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=000" /></a>
+  <a href="https://github.com/reacher-z/HarnessBench"><img alt="GitHub stars" src="https://img.shields.io/github/stars/reacher-z/HarnessBench?style=flat-square&logo=github&color=181717&cacheSeconds=300" /></a>
+  <a href="https://discord.gg/clawbench"><img alt="Discord" src="https://img.shields.io/badge/Discord-%E5%8A%A0%E5%85%A5%E7%A4%BE%E5%8C%BA-00D26A?style=flat-square&logo=discord&logoColor=white&labelColor=000" /></a>
+</p>
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![PyPI: harness-bench](https://img.shields.io/badge/pypi-harness--bench-informational)](https://pypi.org/project/harness-bench/)
+<p align="center">
+  <a href="https://github.com/reacher-z/ClawBench"><img src="https://img.shields.io/badge/%F0%9F%94%97%20ClawBench%20%E5%A7%8A%E5%A6%B9%E9%A1%B9%E7%9B%AE-181717?style=for-the-badge&labelColor=6C2BD9&color=FFD21E" alt="ClawBench 姊妹项目" /></a>
+</p>
 
-[English](README.md) · [简体中文](README.zh-CN.md)
+<p align="center">
+  <a href="https://deepwiki.com/reacher-z/HarnessBench"><img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg" /></a>
+</p>
+
+<p align="center">
+  想固定 Harness、比较不同<i>基础模型</i>？看看我们的姊妹项目
+  <a href="https://github.com/reacher-z/ClawBench"><b>ClawBench</b></a>
+  &nbsp;—&nbsp; 同一套评测流水线，正交维度。
+</p>
+
+[English](README.md) &nbsp;·&nbsp; [简体中文](README.zh-CN.md)
 
 </div>
 

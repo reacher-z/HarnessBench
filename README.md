@@ -2,15 +2,38 @@
 
 # HarnessBench
 
-**Comparing agentic harnesses on everyday online tasks.**
+<p align="center">
+  <strong>Comparing Agentic Harnesses on Everyday Online Tasks</strong><br>
+  <a href="docs/adding-a-harness.md">Read the Docs</a>
+  &nbsp;·&nbsp;
+  <a href="docs/harness-comparison.md">Harness Comparison</a>
+  &nbsp;·&nbsp;
+  <a href="docs/cloud-harness-setup.md">Cloud Setup</a>
+</p>
 
-Sister project to [ClawBench](https://github.com/reacher-z/ClawBench). Where ClawBench fixes the harness and varies the base model, **HarnessBench fixes the base model and varies the harness**. Same scoring pipeline, orthogonal axis.
+<p align="center">
+  <a href="https://github.com/reacher-z/HarnessBench/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-181717?style=flat-square&labelColor=000" /></a>
+  <a href="https://pypi.org/project/harness-bench/"><img alt="PyPI" src="https://img.shields.io/badge/pypi-harness--bench-3775A9?style=flat-square&logo=pypi&logoColor=white&labelColor=000" /></a>
+  <a href="https://www.python.org/downloads/"><img alt="Python 3.10+" src="https://img.shields.io/badge/python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=000" /></a>
+  <a href="https://github.com/reacher-z/HarnessBench"><img alt="GitHub stars" src="https://img.shields.io/github/stars/reacher-z/HarnessBench?style=flat-square&logo=github&color=181717&cacheSeconds=300" /></a>
+  <a href="https://discord.gg/clawbench"><img alt="Discord" src="https://img.shields.io/badge/Discord-Join%20our%20community-00D26A?style=flat-square&logo=discord&logoColor=white&labelColor=000" /></a>
+</p>
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![PyPI: harness-bench](https://img.shields.io/badge/pypi-harness--bench-informational)](https://pypi.org/project/harness-bench/)
+<p align="center">
+  <a href="https://github.com/reacher-z/ClawBench"><img src="https://img.shields.io/badge/%F0%9F%94%97%20Sister%20project%20of%20ClawBench-181717?style=for-the-badge&labelColor=6C2BD9&color=FFD21E" alt="Sister project of ClawBench" /></a>
+</p>
 
-[English](README.md) · [简体中文](README.zh-CN.md)
+<p align="center">
+  <a href="https://deepwiki.com/reacher-z/HarnessBench"><img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg" /></a>
+</p>
+
+<p align="center">
+  If you want to compare <i>base models</i> on a fixed harness, check out our sister project
+  <a href="https://github.com/reacher-z/ClawBench"><b>ClawBench</b></a>
+  &nbsp;—&nbsp; same pipeline, orthogonal axis.
+</p>
+
+[English](README.md) &nbsp;·&nbsp; [简体中文](README.zh-CN.md)
 
 </div>
 
