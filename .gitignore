@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+dist/
+build/
+*.whl
+.DS_Store
+.env
+.env.local
+harness-output/
+harnessbench-output/
+*.log

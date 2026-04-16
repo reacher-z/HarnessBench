@@ -1,0 +1,12 @@
+HarnessBench
+Copyright 2026 reacher-z and contributors
+
+This product includes software developed as part of the HarnessBench project
+(https://github.com/reacher-z/HarnessBench), a sister project of ClawBench
+(https://github.com/reacher-z/ClawBench). The evaluation pipeline, container
+orchestration, submission-interception, and 5-layer recording are reused from
+ClawBench and remain under the Apache License 2.0.
+
+Third-party harness integrations (under src/harnessbench/harnesses/) interface
+with independently-licensed projects. See each harness directory's NOTICE or
+README for upstream attribution; HarnessBench itself is Apache-2.0.

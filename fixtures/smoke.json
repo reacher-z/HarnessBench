@@ -1,0 +1,8 @@
+{
+  "id": "smoke-search",
+  "category": "information_retrieval",
+  "task": "Go to example.com and report the heading text of the page.",
+  "start_url": "https://example.com",
+  "budget_steps": 5,
+  "budget_seconds": 60
+}
