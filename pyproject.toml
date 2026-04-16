@@ -3,8 +3,8 @@ requires = ["hatchling>=1.24"]
 build-backend = "hatchling.build"
 
 [project]
-name = "harnessbench"
-version = "0.1.0"
+name = "harness-bench"
+version = "0.1.6"
 description = "HarnessBench: compare agentic harnesses on everyday online tasks (sister project to ClawBench)."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -58,7 +58,7 @@ Issues = "https://github.com/reacher-z/HarnessBench/issues"
 "Sister Project" = "https://github.com/reacher-z/ClawBench"
 
 [project.scripts]
-harnessbench = "harnessbench.cli:main"
+harness-bench = "harnessbench.cli:main"
 
 # Register each built-in harness with ClawBench's plugin group so that
 # `clawbench-eval` discovers them when HarnessBench is installed.

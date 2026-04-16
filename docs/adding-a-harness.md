@@ -61,14 +61,14 @@ In HarnessBench's `pyproject.toml`:
 hb-my-harness = "harnessbench.harnesses.my_harness:spec"
 ```
 
-Or, for an out-of-tree package, put the stanza in your own `pyproject.toml` and `pip install .` it alongside `harnessbench`.
+Or, for an out-of-tree package, put the stanza in your own `pyproject.toml` and `pip install .` it alongside `harness-bench`.
 
 ## 5. Verify
 
 ```bash
-harnessbench harnesses | grep my-harness
-harnessbench matrix --harnesses my-harness --models gpt-4o-mini
-harnessbench run --harness my-harness --model gpt-4o-mini --case fixtures/smoke.json
+harness-bench harnesses | grep my-harness
+harness-bench matrix --harnesses my-harness --models gpt-4o-mini
+harness-bench run --harness my-harness --model gpt-4o-mini --case fixtures/smoke.json
 ```
 
 ## Cloud-opt-in harnesses

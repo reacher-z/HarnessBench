@@ -14,7 +14,7 @@ Stagehand drives a cloud-hosted Chrome at BrowserBase. You need a BrowserBase ac
 3. (Optional) pin a project id: `export BROWSERBASE_PROJECT_ID=...`.
 4. Run:
    ```bash
-   harnessbench run --harness stagehand --model gpt-4o-mini --case fixtures/smoke.json
+   harness-bench run --harness stagehand --model gpt-4o-mini --case fixtures/smoke.json
    ```
 
 Each Stagehand run consumes BrowserBase browser minutes. Check your plan before a large matrix.
@@ -33,7 +33,7 @@ Coze Studio workflows execute against a Coze instance — either self-hosted fro
    ```
 4. Run:
    ```bash
-   harnessbench run --harness coze-studio --model gpt-4o-mini --case fixtures/smoke.json
+   harness-bench run --harness coze-studio --model gpt-4o-mini --case fixtures/smoke.json
    ```
 
 ## What "skipped" looks like
@@ -41,7 +41,7 @@ Coze Studio workflows execute against a Coze instance — either self-hosted fro
 With nothing set:
 
 ```
-$ harnessbench matrix --harnesses stagehand,coze-studio,openclaw --models gpt-4o-mini
+$ harness-bench matrix --harnesses stagehand,coze-studio,openclaw --models gpt-4o-mini
 harness       model         status
 stagehand     gpt-4o-mini   skipped:missing_credential:BROWSERBASE_API_KEY
 coze-studio   gpt-4o-mini   skipped:missing_credential:COZE_INSTANCE_URL
