@@ -44,7 +44,7 @@
 uv tool install harness-bench && harness-bench
 ```
 
-<sub><i>Install &rarr; List &rarr; Run. &nbsp; Reuses ClawBench's pipeline. &nbsp; Cloud harnesses opt-in via env vars.</i></sub>
+<sub><i>Install &rarr; List &rarr; Preflight. &nbsp; Cloud harnesses opt in via env vars. &nbsp; Execution awaits a public ClawBench runner API.</i></sub>
 
 ### Which Harness Wins on the Same Task?
 
@@ -109,7 +109,7 @@ uv tool install harness-bench && harness-bench
 git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harness-bench
 ```
 
-**Prerequisites:** [Python 3.10+](https://python.org), [uv](https://docs.astral.sh/uv/), and a container engine -- [Docker](https://www.docker.com/) **or** [Podman](https://podman.io/). Same engine detection as ClawBench; force one with `export CONTAINER_ENGINE=docker`.
+**Prerequisites:** [Python 3.11+](https://python.org), [uv](https://docs.astral.sh/uv/), and a container engine -- [Docker](https://www.docker.com/) **or** [Podman](https://podman.io/). Same engine detection as ClawBench; force one with `export CONTAINER_ENGINE=docker`.
 
 **1. List registered harnesses:**
 
@@ -120,7 +120,7 @@ harness-bench harnesses
 # claw-code      ready
 # browser-use    ready
 # stagehand      skipped: set BROWSERBASE_API_KEY
-# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN
+# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN, COZE_WORKFLOW_ID
 ```
 
 **2. Preview a matrix** (no side effects):
@@ -133,46 +133,30 @@ harness-bench matrix \
     --case    007-daily-life-travel-expedia
 ```
 
-**3. Run one triple end-to-end:**
+**3. Execution status:**
 
 ```bash
-harness-bench run \
-    --harness openclaw \
-    --model   claude-sonnet-4-6 \
-    --case    001-daily-life-food-uber-eats
+harness-bench batch --dry-run \
+    --harness openclaw --harness hermes \
+    --model example-model \
+    --case example-case
 ```
 
-Results land in `./harness-output/<harness>/<model>/<case>-<timestamp>/` with the full five-layer recording -- identical layout to ClawBench so a single analysis script handles both.
+The released `clawbench-eval` package does not expose the public `run_case` API that HarnessBench needs. `harness-bench run` and non-dry `batch` therefore stop before creating containers or output. Use `matrix` and `batch --dry-run` for local preflight.
 
-**4. Matrix batch** (all eligible triples):
+**4. Result availability:**
 
-```bash
-harness-bench batch \
-    --harness openclaw --harness hermes --harness browser-use --harness claw-code \
-    --model   claude-sonnet-4-6 \
-    --case    $(cat fixtures/lite.txt)
-```
+No official HarnessBench result table, HarnessBench-Lite fixture, tutorial video, or execution recording is published here.
 
-**5. Render the leaderboard:**
+**5. Future result rendering:**
 
-```bash
-harness-bench leaderboard --results-dir ./harness-output/
-```
+`harness-bench leaderboard` only renders local result files after a public execution API and verified end-to-end runner are available.
 
 <br/>
 
-# <img src="static/icons/chart-bar.svg" width="28" height="28"> HarnessBench-Lite
+# <img src="static/icons/chart-bar.svg" width="28" height="28"> Project Status
 
-**New here? Run this first.** [`fixtures/lite.txt`](fixtures/lite.txt) is a **20-task curated subset** of ClawBench's 153, reused verbatim so HarnessBench-Lite and ClawBench-Lite are comparable row-for-row. It matches the 20-tasks-per-source convention of [browser-use/benchmark](https://github.com/browser-use/benchmark) and gives you a credible harness-vs-harness signal at a fraction of the full-matrix cost.
-
-For six harnesses on Lite you're looking at roughly **120 triples** (6 harnesses x 20 tasks); cloud-opt-in harnesses auto-skip if credentials are absent so the local-only cost is **80 triples**.
-
-```bash
-harness-bench batch \
-    --harness openclaw -h hermes -h browser-use -h claw-code \
-    --model   claude-sonnet-4-6 \
-    --case    $(cat fixtures/lite.txt)
-```
+No public HarnessBench-Lite fixture is shipped. Do not compare an unpublished subset with another benchmark or infer costs, rankings, or coverage from a missing fixture.
 
 <br/>
 
@@ -180,11 +164,8 @@ harness-bench batch \
 
 <div align="center">
 
-<!-- TODO: Replace with actual video links -->
-
-[![Watch on YouTube](https://img.shields.io/badge/Watch_Tutorial-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com)
-&nbsp;&nbsp;
-[![Watch on Bilibili](https://img.shields.io/badge/Watch_Tutorial-Bilibili-00A1D6?style=for-the-badge&logo=bilibili&logoColor=white)](https://bilibili.com)
+No public tutorial video is available. Start with the documented `harnesses`,
+`matrix`, and dry-run commands above.
 
 </div>
 
@@ -192,28 +173,29 @@ harness-bench batch \
 
 # <img src="static/icons/play.svg" width="28" height="28"> Demos
 
-<!-- TODO: Replace with actual demo GIFs/recordings -->
+No verified end-to-end execution demo is published. This section will remain empty
+until a public runner and an inspectable recording are available.
 
 <table>
 <tr>
 <td width="50%" align="center">
 
-**`openclaw` on Uber Eats**
+**No verified demo available**
 
-https://github.com/user-attachments/assets/placeholder-openclaw-ubereats
+No placeholder media is presented as a project result.
 
 </td>
 <td width="50%" align="center">
 
-**`browser-use` on the same Uber Eats task**
+**No verified comparison available**
 
-https://github.com/user-attachments/assets/placeholder-browseruse-ubereats
+No placeholder media is presented as a project result.
 
 </td>
 </tr>
 </table>
 
-> Each HarnessBench run produces the same MP4 session recording ClawBench does. Pair-watching the same task across two harnesses is the fastest way to see where their behavior diverges.
+> Execution recordings will only be linked after the public runner is available and the recording is independently inspectable.
 
 <br/>
 
@@ -226,9 +208,9 @@ https://github.com/user-attachments/assets/placeholder-browseruse-ubereats
 | `claw-code` | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | Rust | &mdash; | Rust-native agent loop, zero-GIL concurrency. |
 | `browser-use` | [browser-use/browser-use](https://github.com/browser-use/browser-use) | Python | &mdash; | Community-favorite Playwright-based harness. |
 | `stagehand` | [browserbase/stagehand](https://github.com/browserbase/stagehand) | Node/TS | **Yes** | BrowserBase's Stagehand -- requires `BROWSERBASE_API_KEY`. |
-| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **Yes** | Coze Studio flow runner -- requires `COZE_INSTANCE_URL` + `COZE_API_TOKEN`. |
+| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **Yes** | Coze Studio flow runner -- requires `COZE_INSTANCE_URL`, `COZE_API_TOKEN`, and `COZE_WORKFLOW_ID`. |
 
-Cloud harnesses are **opt-in**: without credentials they appear in the matrix as `skipped:missing_credential:<VAR>` -- **never silently zeroed**. More harnesses land as follow-up PRs; see [`docs/scout-2026-04-16.md`](docs/scout-2026-04-16.md) for the global framework sweep.
+Cloud harnesses are **opt-in**: without credentials they appear in the matrix as `skipped:missing_credential:<VAR>` -- **never silently zeroed**. Adapter requirements and comparison boundaries are documented in [`docs/harness-comparison.md`](docs/harness-comparison.md).
 
 <br/>
 
@@ -236,26 +218,16 @@ Cloud harnesses are **opt-in**: without credentials they appear in the matrix as
 
 <div align="center">
 
-**Work in progress.** Initial runs on `claude-sonnet-4-6` across the six harnesses are in flight -- numbers below are placeholders illustrating the leaderboard shape.
+**No official HarnessBench scores are published.** The execution bridge is blocked on ClawBench's public runner API, so this repository does not present placeholder rows as benchmark results.
 
 </div>
 
-| Rank | Harness | Overall | Daily | Travel | Work | Dev | Notes |
-|:----:|---------|:-------:|:-----:|:------:|:----:|:---:|-------|
-| &mdash; | `openclaw` | TBD | TBD | TBD | TBD | TBD | reference harness (ClawBench) |
-| &mdash; | `hermes` | TBD | TBD | TBD | TBD | TBD | Python tool-use loop |
-| &mdash; | `claw-code` | TBD | TBD | TBD | TBD | TBD | Rust agent loop |
-| &mdash; | `browser-use` | TBD | TBD | TBD | TBD | TBD | Playwright-based |
-| &mdash; | `stagehand` | TBD | TBD | TBD | TBD | TBD | cloud-opt-in |
-| &mdash; | `coze-studio` | TBD | TBD | TBD | TBD | TBD | cloud-opt-in |
-
-<sub><i>Partitioning: <code>(harness, model, category)</code>. Run <code>harness-bench leaderboard</code> locally to render your own.</i></sub>
 
 <br/>
 
-# <img src="static/icons/circle-question.svg" width="28" height="28"> Example Walkthrough
+# <img src="static/icons/circle-question.svg" width="28" height="28"> Intended Output Contract
 
-Curious what one triple actually looks like? Here's **task 001** run through **three different harnesses**, same base model:
+The paths below describe the intended cross-harness output contract. They are not a published run, demo, or leaderboard result:
 
 ```
 task    = 001-daily-life-food-uber-eats
@@ -271,7 +243,7 @@ harness = browser-use   ──►  ./harness-output/browser-use/claude-sonnet-4-
                              (Playwright driver + atomic action primitives)
 ```
 
-All three land the **same five-layer bundle** (recording.mp4, screenshots, actions.jsonl, requests.jsonl, agent-messages.jsonl) plus `interception.json` from ClawBench's CDP-level fetch interceptor. That uniformity is what makes cross-harness comparison meaningful: identical inputs, identical judge, identical rubric -- the only thing that moves between runs is the agent loop itself.
+When the public runner is available, each adapter must emit the same documented recording contract before comparisons can be considered reproducible.
 
 <br/>
 
@@ -324,11 +296,11 @@ harness-bench harnesses
 # Matrix preview (no side effects)
 harness-bench matrix --harness openclaw -h hermes -m claude-sonnet-4-6 -c 001-daily-life-food-uber-eats
 
-# Single run
+# Execution boundary: this reports the unavailable public runner and exits before output
 harness-bench run --harness openclaw --model claude-sonnet-4-6 --case 001-daily-life-food-uber-eats
 
-# Batch (matrix-expand, skip ineligible, run the rest)
-harness-bench batch -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
+# Batch planning remains available with --dry-run
+harness-bench batch --dry-run -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
 
 # Render leaderboard markdown
 harness-bench leaderboard --results-dir ./harness-output/
@@ -366,7 +338,7 @@ See [ClawBench's eval guide](https://github.com/reacher-z/ClawBench/blob/main/ev
 <details>
 <summary><b>Do I have to run cloud harnesses?</b></summary>
 
-No. `stagehand` and `coze-studio` auto-skip without credentials and appear in the matrix as `skipped:missing_credential:<VAR>`. The four local-first harnesses (`openclaw`, `hermes`, `claw-code`, `browser-use`) are enough to produce a meaningful leaderboard on any workstation with Docker.
+No. `stagehand` and `coze-studio` auto-skip without credentials and appear in the matrix as `skipped:missing_credential:<VAR>`. With all required variables set, they are eligible for preflight; execution remains unavailable for every harness until the public runner API lands.
 
 </details>
 
@@ -390,7 +362,7 @@ Yes -- three files (`Dockerfile` + `setup.sh` + `run.sh`) plus one `pyproject.to
 <details>
 <summary><b>Which base model should I start with?</b></summary>
 
-Whatever you already trust. The point of HarnessBench is that you pick one model and observe how different harnesses wrap it. For the published numbers we use `claude-sonnet-4-6` (ClawBench's top scorer at 33.3% overall), which gives every harness a known-competitive model to wrap. Your own runs can use anything in your `models.yaml`.
+Use an explicitly named model for preflight. HarnessBench has no published result table or endorsed base model at this time; do not infer comparative performance from a model identifier in an example command.
 
 </details>
 
@@ -398,7 +370,7 @@ Whatever you already trust. The point of HarnessBench is that you pick one model
 
 ## Contributing
 
-We welcome adapters for new harnesses, especially ones that survive the [30-agent global sweep](docs/scout-2026-04-16.md). Most harness adapters are a single directory under `src/harnessbench/harnesses/` with three files; see [`docs/adding-a-harness.md`](docs/adding-a-harness.md) for the walkthrough.
+We welcome adapters for new harnesses. Most harness adapters are a single directory under `src/harnessbench/harnesses/` with three files; see [`docs/adding-a-harness.md`](docs/adding-a-harness.md) for the walkthrough and [`CONTRIBUTING.md`](CONTRIBUTING.md) for evidence and test expectations.
 
 **Quick wins:**
 
@@ -425,11 +397,11 @@ We welcome adapters for new harnesses, especially ones that survive the [30-agen
 <sub><b>中文社区</b><br/>研究者、开发者、贡献者交流</sub>
 </td>
 <td align="center" width="33%">
-<a href="https://github.com/reacher-z/HarnessBench/discussions">
-<img src="https://img.shields.io/badge/GitHub-Discussions-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Discussions">
+<a href="https://github.com/reacher-z/HarnessBench/issues">
+<img src="https://img.shields.io/badge/GitHub-Issues-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Issues">
 </a>
 <br/>
-<sub><b>Async Q&A</b><br/>Searchable, long-form, permanent</sub>
+<sub><b>Issue tracking</b><br/>Reproducible bugs and feature requests</sub>
 </td>
 </tr>
 </table>

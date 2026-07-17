@@ -33,7 +33,7 @@ def test_stagehand_eligible_with_browserbase_key():
     assert specs[0].status == "eligible"
 
 
-def test_coze_studio_requires_both_vars():
+def test_coze_studio_requires_all_three_vars():
     only_url = expand(
         harnesses=["coze-studio"],
         models=["gpt-4o-mini"],
@@ -43,7 +43,7 @@ def test_coze_studio_requires_both_vars():
     assert only_url[0].status == "skipped"
     assert "COZE_API_TOKEN" in only_url[0].skip_reason
 
-    both = expand(
+    url_and_token = expand(
         harnesses=["coze-studio"],
         models=["gpt-4o-mini"],
         cases=_cases(),
@@ -52,7 +52,20 @@ def test_coze_studio_requires_both_vars():
             "COZE_API_TOKEN": "pat_test",
         },
     )
-    assert both[0].status == "eligible"
+    assert url_and_token[0].status == "skipped"
+    assert "COZE_WORKFLOW_ID" in url_and_token[0].skip_reason
+
+    all_required = expand(
+        harnesses=["coze-studio"],
+        models=["gpt-4o-mini"],
+        cases=_cases(),
+        env={
+            "COZE_INSTANCE_URL": "https://coze.example",
+            "COZE_API_TOKEN": "pat_test",
+            "COZE_WORKFLOW_ID": "workflow_test",
+        },
+    )
+    assert all_required[0].status == "eligible"
 
 
 def test_local_harnesses_unaffected_by_missing_cloud_vars():

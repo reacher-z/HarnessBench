@@ -108,7 +108,7 @@ uv tool install harness-bench && harness-bench
 git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harness-bench
 ```
 
-**前置依赖：** [Python 3.10+](https://python.org)、[uv](https://docs.astral.sh/uv/)，以及一个容器引擎 -- [Docker](https://www.docker.com/) **或** [Podman](https://podman.io/)。和 ClawBench 一样会自动探测；通过 `export CONTAINER_ENGINE=docker` 强制选择。
+**前置依赖：** [Python 3.11+](https://python.org)、[uv](https://docs.astral.sh/uv/)，以及一个容器引擎 -- [Docker](https://www.docker.com/) **或** [Podman](https://podman.io/)。和 ClawBench 一样会自动探测；通过 `export CONTAINER_ENGINE=docker` 强制选择。
 
 **1. 列出已注册的 Harness：**
 
@@ -119,7 +119,7 @@ harness-bench harnesses
 # claw-code      ready
 # browser-use    ready
 # stagehand      skipped: set BROWSERBASE_API_KEY
-# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN
+# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN, COZE_WORKFLOW_ID
 ```
 
 **2. 预览将要运行的 matrix**（无副作用）：
@@ -132,31 +132,24 @@ harness-bench matrix \
     --case    007-daily-life-travel-expedia
 ```
 
-**3. 端到端跑一组 triple：**
+**3. 执行状态：**
 
 ```bash
-harness-bench run \
-    --harness openclaw \
-    --model   claude-sonnet-4-6 \
-    --case    001-daily-life-food-uber-eats
+harness-bench batch --dry-run \
+    --harness openclaw --harness hermes \
+    --model example-model \
+    --case example-case
 ```
 
-结果落在 `./harness-output/<harness>/<model>/<case>-<timestamp>/`，包含完整的五层录制 -- 目录结构和 ClawBench 完全一致，所以一份分析脚本两边通用。
+已发布的 `clawbench-eval` 尚未提供 HarnessBench 所需的公开 `run_case` API。因此，`harness-bench run` 和非 dry-run 的 `batch` 会在创建容器或输出前停止。请使用 `matrix` 和 `batch --dry-run` 做本地预检。
 
-**4. Matrix 批跑**（跑完所有合格的 triple）：
+**4. 结果可用性：**
 
-```bash
-harness-bench batch \
-    --harness openclaw --harness hermes --harness browser-use --harness claw-code \
-    --model   claude-sonnet-4-6 \
-    --case    $(cat fixtures/lite.txt)
-```
+仓库目前没有发布官方 HarnessBench 成绩表、HarnessBench-Lite fixture、教程视频或执行录屏。
 
-**5. 渲染排行榜：**
+**5. 后续结果渲染：**
 
-```bash
-harness-bench leaderboard --results-dir ./harness-output/
-```
+在公开执行 API 可用并有经过验证的端到端 runner 之前，`harness-bench leaderboard` 只会渲染本地已有的结果文件。
 
 <br/>
 
@@ -169,9 +162,9 @@ harness-bench leaderboard --results-dir ./harness-output/
 | `claw-code` | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | Rust | &mdash; | 原生 Rust agent 循环，无 GIL 并发。 |
 | `browser-use` | [browser-use/browser-use](https://github.com/browser-use/browser-use) | Python | &mdash; | 社区热门的 Playwright-based harness。 |
 | `stagehand` | [browserbase/stagehand](https://github.com/browserbase/stagehand) | Node/TS | **是** | BrowserBase 的 Stagehand -- 需要 `BROWSERBASE_API_KEY`。 |
-| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **是** | Coze Studio 流程执行器 -- 需要 `COZE_INSTANCE_URL` + `COZE_API_TOKEN`。 |
+| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **是** | Coze Studio 流程执行器 -- 需要 `COZE_INSTANCE_URL`、`COZE_API_TOKEN` 和 `COZE_WORKFLOW_ID`。 |
 
-云端 Harness **可选启用**：未提供凭证时在 matrix 中标记为 `skipped:missing_credential:<VAR>` -- **绝不会被静默记 0 分**。更多 Harness 通过独立 PR 加入；见 [`docs/scout-2026-04-16.md`](docs/scout-2026-04-16.md)。
+云端 Harness **可选启用**：未提供凭证时在 matrix 中标记为 `skipped:missing_credential:<VAR>` -- **绝不会被静默记 0 分**。适配器要求和比较边界见 [`docs/harness-comparison.md`](docs/harness-comparison.md)。
 
 <br/>
 
@@ -179,26 +172,16 @@ harness-bench leaderboard --results-dir ./harness-output/
 
 <div align="center">
 
-**Work in progress。** 在 `claude-sonnet-4-6` 上跑六个 Harness 的首轮结果还在路上 -- 下表仅展示排行榜形态。
+**尚未发布官方 HarnessBench 分数。** 执行桥接依赖 ClawBench 的公开 runner API，因此仓库不会把占位行当成 benchmark 结果。
 
 </div>
 
-| 排名 | Harness | 总体 | Daily | Travel | Work | Dev | 备注 |
-|:----:|---------|:----:|:-----:|:------:|:----:|:---:|------|
-| &mdash; | `openclaw` | TBD | TBD | TBD | TBD | TBD | 参考 harness（ClawBench） |
-| &mdash; | `hermes` | TBD | TBD | TBD | TBD | TBD | Python tool-use 循环 |
-| &mdash; | `claw-code` | TBD | TBD | TBD | TBD | TBD | Rust agent 循环 |
-| &mdash; | `browser-use` | TBD | TBD | TBD | TBD | TBD | Playwright-based |
-| &mdash; | `stagehand` | TBD | TBD | TBD | TBD | TBD | 云端可选 |
-| &mdash; | `coze-studio` | TBD | TBD | TBD | TBD | TBD | 云端可选 |
-
-<sub><i>分区：<code>(harness, model, category)</code>。在本地 <code>harness-bench leaderboard</code> 就能渲染自己的。</i></sub>
 
 <br/>
 
-# <img src="static/icons/circle-question.svg" width="28" height="28"> 示例走查
+# <img src="static/icons/circle-question.svg" width="28" height="28"> 预期输出契约
 
-好奇一个 triple 到底长什么样？看同一个基础模型下，**任务 001** 跑在 **三种不同 Harness** 上：
+以下路径描述的是预期的跨-Harness 输出契约，不是已发布的运行、演示或排行榜结果：
 
 ```
 task    = 001-daily-life-food-uber-eats
@@ -214,7 +197,7 @@ harness = browser-use   ──►  ./harness-output/browser-use/claude-sonnet-4-
                              （Playwright 驱动 + 原子 action 原语）
 ```
 
-三种 Harness 落盘的都是 **同一份五层 bundle**（recording.mp4、screenshots、actions.jsonl、requests.jsonl、agent-messages.jsonl），外加 ClawBench CDP 级拦截器产出的 `interception.json`。这种一致性就是跨-Harness 对比有意义的前提：输入一样、judge 一样、rubric 一样 -- 变的只有 agent loop 本身。
+公开 runner 可用后，每个适配器都必须产出相同的已文档化录制契约，跨-Harness 的比较才可视为可复现。
 
 <br/>
 
@@ -266,11 +249,11 @@ harness-bench harnesses
 # Matrix 预览（无副作用）
 harness-bench matrix --harness openclaw -h hermes -m claude-sonnet-4-6 -c 001-daily-life-food-uber-eats
 
-# 单次运行
+# 执行边界：该命令会报告公开 runner 尚不可用，并在产生输出前退出
 harness-bench run --harness openclaw --model claude-sonnet-4-6 --case 001-daily-life-food-uber-eats
 
-# 批跑（matrix 展开，跳过不合格的，跑剩下的）
-harness-bench batch -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
+# 使用 --dry-run 预览批处理计划
+harness-bench batch --dry-run -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c 001 -c 007
 
 # 渲染排行榜 markdown
 harness-bench leaderboard --results-dir ./harness-output/
@@ -308,7 +291,7 @@ harness-bench leaderboard --results-dir ./harness-output/
 <details>
 <summary><b>必须跑云端 Harness 吗？</b></summary>
 
-不用。`stagehand` 和 `coze-studio` 在没有凭证时会自动跳过，在 matrix 中显示为 `skipped:missing_credential:<VAR>`。四个本地优先的 Harness（`openclaw`、`hermes`、`claw-code`、`browser-use`）足够在任何装了 Docker 的工作站上产出有意义的排行榜。
+不用。`stagehand` 和 `coze-studio` 在没有凭证时会自动跳过，在 matrix 中显示为 `skipped:missing_credential:<VAR>`。配置全部变量后可通过预检；在公开 runner API 发布前，所有 Harness 都无法执行。
 
 </details>
 
@@ -332,7 +315,7 @@ harness-bench leaderboard --results-dir ./harness-output/
 <details>
 <summary><b>应该从哪个基础模型开始？</b></summary>
 
-用你已经信任的模型。HarnessBench 的重点是固定一个模型，观察不同 harness 把它包起来会怎么样。对外公布的数字我们用 `claude-sonnet-4-6`（ClawBench 的榜首，33.3% 总分），它给每个 harness 提供一个已知有竞争力的底座。自己跑时 `models.yaml` 里的任何模型都可以。
+请用明确命名的模型做预检。HarnessBench 目前没有发布成绩表或推荐的基础模型，不要从示例命令里的模型标识推断比较性能。
 
 </details>
 
@@ -340,7 +323,7 @@ harness-bench leaderboard --results-dir ./harness-output/
 
 ## 贡献
 
-欢迎新 harness 适配器，尤其是能通过 [30-agent 全球扫描](docs/scout-2026-04-16.md) 的。多数适配器就是 `src/harnessbench/harnesses/` 下一个目录加三个文件；走查见 [`docs/adding-a-harness.md`](docs/adding-a-harness.md)。
+欢迎新的 harness 适配器。多数适配器就是 `src/harnessbench/harnesses/` 下一个目录加三个文件；走查见 [`docs/adding-a-harness.md`](docs/adding-a-harness.md)，证据与测试要求见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。
 
 **快速贡献：**
 
@@ -367,11 +350,11 @@ harness-bench leaderboard --results-dir ./harness-output/
 <sub><b>中文社区</b><br/>研究者、开发者、贡献者交流</sub>
 </td>
 <td align="center" width="33%">
-<a href="https://github.com/reacher-z/HarnessBench/discussions">
-<img src="https://img.shields.io/badge/GitHub-Discussions-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Discussions">
+<a href="https://github.com/reacher-z/HarnessBench/issues">
+<img src="https://img.shields.io/badge/GitHub-Issues-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Issues">
 </a>
 <br/>
-<sub><b>异步问答</b><br/>可搜索、长文、永久</sub>
+<sub><b>问题追踪</b><br/>可复现的 bug 与功能请求</sub>
 </td>
 </tr>
 </table>

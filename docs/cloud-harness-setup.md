@@ -1,6 +1,10 @@
 # Cloud Harness Setup
 
-Two of the six bundled harnesses require third-party credentials. They are opt-in: without the env vars, they are **skipped**, not failed.
+Two of the six bundled harnesses require third-party credentials. They are opt-in:
+without the env vars, they are **skipped**, not failed. Credential setup controls
+preflight only: the currently released CLI cannot execute `run` or non-dry `batch`
+until ClawBench exposes the required public runner API. Do not spend cloud credits
+or paste live secrets into logs while that execution boundary remains in place.
 
 ## Stagehand (BrowserBase)
 
@@ -12,12 +16,13 @@ Stagehand drives a cloud-hosted Chrome at BrowserBase. You need a BrowserBase ac
    export BROWSERBASE_API_KEY=bb_live_...
    ```
 3. (Optional) pin a project id: `export BROWSERBASE_PROJECT_ID=...`.
-4. Run:
+4. Confirm that the matrix is eligible:
    ```bash
-   harness-bench run --harness stagehand --model gpt-4o-mini --case fixtures/smoke.json
+   harness-bench matrix --harness stagehand --model gpt-4o-mini --case smoke-search
    ```
 
-Each Stagehand run consumes BrowserBase browser minutes. Check your plan before a large matrix.
+Do not start a Stagehand session from HarnessBench until an end-to-end runner is
+published and verified.
 
 ## Coze Studio
 
@@ -31,9 +36,9 @@ Coze Studio workflows execute against a Coze instance — either self-hosted fro
    export COZE_API_TOKEN=pat_...
    export COZE_WORKFLOW_ID=<the workflow you created>
    ```
-4. Run:
+4. Confirm that the matrix is eligible:
    ```bash
-   harness-bench run --harness coze-studio --model gpt-4o-mini --case fixtures/smoke.json
+   harness-bench matrix --harness coze-studio --model gpt-4o-mini --case smoke-search
    ```
 
 ## What "skipped" looks like
@@ -41,11 +46,12 @@ Coze Studio workflows execute against a Coze instance — either self-hosted fro
 With nothing set:
 
 ```
-$ harness-bench matrix --harnesses stagehand,coze-studio,openclaw --models gpt-4o-mini
-harness       model         status
-stagehand     gpt-4o-mini   skipped:missing_credential:BROWSERBASE_API_KEY
-coze-studio   gpt-4o-mini   skipped:missing_credential:COZE_INSTANCE_URL
-openclaw      gpt-4o-mini   eligible
+$ harness-bench matrix --harness stagehand --harness coze-studio --harness openclaw --model gpt-4o-mini --case smoke-search
+total=3 eligible=1 skipped=2
+[SKIP] stagehand      gpt-4o-mini            smoke-search  (missing_credential:BROWSERBASE_API_KEY)
+[SKIP] coze-studio    gpt-4o-mini            smoke-search  (missing_credential:COZE_INSTANCE_URL,COZE_API_TOKEN,COZE_WORKFLOW_ID)
+[OK]   openclaw       gpt-4o-mini            smoke-search
 ```
 
-The leaderboard preserves these entries verbatim so you can see exactly what credentials to set to unblock a slot.
+Use this output only to identify missing configuration. It is not a benchmark result
+or a leaderboard entry.

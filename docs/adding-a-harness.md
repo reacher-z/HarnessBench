@@ -1,6 +1,9 @@
 # Adding a Harness
 
-A harness adapter is three files plus one `pyproject.toml` entry. That's it.
+A harness adapter is three files plus one `pyproject.toml` entry. This guide defines
+the adapter contract and its local discovery checks. The currently released CLI can
+list adapters, preflight a matrix, and dry-run a batch; it cannot execute an adapter
+until ClawBench exposes the required public runner API.
 
 ## The 3-file pattern
 
@@ -67,9 +70,13 @@ Or, for an out-of-tree package, put the stanza in your own `pyproject.toml` and 
 
 ```bash
 harness-bench harnesses | grep my-harness
-harness-bench matrix --harnesses my-harness --models gpt-4o-mini
-harness-bench run --harness my-harness --model gpt-4o-mini --case fixtures/smoke.json
+harness-bench matrix --harness my-harness --model gpt-4o-mini --case smoke-search
+harness-bench batch --dry-run --harness my-harness --model gpt-4o-mini --case smoke-search
+uv run pytest -q
 ```
+
+Do not claim end-to-end adapter support until the public runner is available and an
+integration test verifies the actual container driver.
 
 ## Cloud-opt-in harnesses
 

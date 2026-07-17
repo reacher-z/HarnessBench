@@ -7,7 +7,7 @@ name = "harness-bench"
 version = "0.1.6"
 description = "HarnessBench: compare agentic harnesses on everyday online tasks (sister project to ClawBench)."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 authors = [
     { name = "reacher-z and contributors" },
@@ -29,7 +29,6 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
@@ -37,7 +36,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "clawbench-eval>=0.1.5",
+    "clawbench-eval>=0.7.0",
     "click>=8.1",
     "platformdirs>=4.0",
     "pyyaml>=6.0",
@@ -79,7 +78,7 @@ artifacts = [
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py311"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

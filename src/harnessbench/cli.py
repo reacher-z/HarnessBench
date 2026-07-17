@@ -12,7 +12,6 @@ Subcommands:
 
 from __future__ import annotations
 
-import os
 import sys
 from pathlib import Path
 
@@ -21,6 +20,24 @@ import click
 from harnessbench import __version__
 from harnessbench import matrix as matrix_mod
 from harnessbench import leaderboard as lb_mod
+
+
+_RUNNER_UNAVAILABLE = (
+    "error: HarnessBench execution is unavailable because the installed "
+    "clawbench-eval package does not expose the required public `run_case` API. "
+    "`harnesses` and `matrix` remain supported for discovery and preflight. "
+    "See https://github.com/reacher-z/ClawBench for the public API status."
+)
+
+
+def _load_public_run_case():
+    """Return ClawBench's public runner, or stop before any local side effect."""
+    try:
+        from clawbench import run_case  # type: ignore[attr-defined]
+    except ImportError:
+        click.echo(_RUNNER_UNAVAILABLE, err=True)
+        raise click.exceptions.Exit(10) from None
+    return run_case
 
 
 @click.group(invoke_without_command=True)
@@ -96,17 +113,7 @@ def run_cmd(harness: str, model: str, case: str, output_dir: Path, no_upload: bo
         )
         sys.exit(3)
 
-    # Delegate to ClawBench once it exposes ``run_case`` in its public API.
-    try:
-        from clawbench import run_case  # type: ignore[attr-defined]
-    except ImportError:
-        click.echo(
-            "error: clawbench does not yet expose `run_case` — install clawbench-eval>=0.2.0 "
-            "once the plugin surface lands. See "
-            "https://github.com/reacher-z/ClawBench for progress.",
-            err=True,
-        )
-        sys.exit(10)
+    run_case = _load_public_run_case()
 
     output_dir.mkdir(parents=True, exist_ok=True)
     run_case(
@@ -147,14 +154,7 @@ def batch_cmd(
             click.echo(f"{s.harness} {s.model} {s.case_id} -> {s.status}")
         return
 
-    try:
-        from clawbench import run_case  # type: ignore[attr-defined]
-    except ImportError:
-        click.echo(
-            "error: clawbench does not yet expose `run_case`; install clawbench-eval>=0.2.0.",
-            err=True,
-        )
-        sys.exit(10)
+    run_case = _load_public_run_case()
 
     output_dir.mkdir(parents=True, exist_ok=True)
     for s in specs:

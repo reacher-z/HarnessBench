@@ -3,8 +3,8 @@
 Upstream: https://github.com/coze-dev/coze-studio
 
 Cloud-opt-in: Coze Studio workflows execute against a Coze instance
-(self-hosted or managed). Auto-skips unless both COZE_INSTANCE_URL and
-COZE_API_TOKEN are present.
+(self-hosted or managed). Auto-skips unless COZE_INSTANCE_URL,
+COZE_API_TOKEN, and COZE_WORKFLOW_ID are present.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ spec = HarnessSpec(
     setup_script="setup.sh",
     run_script="run.sh",
     container_isolation="dedicated",
-    requires_credentials=("COZE_INSTANCE_URL", "COZE_API_TOKEN"),
+    requires_credentials=("COZE_INSTANCE_URL", "COZE_API_TOKEN", "COZE_WORKFLOW_ID"),
     upstream_url="https://github.com/coze-dev/coze-studio",
     upstream_license="Apache-2.0",
 )
