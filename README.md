@@ -142,6 +142,9 @@ harness-bench run \
     --case    001-daily-life-food-uber-eats
 ```
 
+Uploads are disabled by default. Add `--upload` to `run` or `batch` to opt in;
+`--no-upload` explicitly keeps results local.
+
 Results land in `./harness-output/<harness>/<model>/<case>-<timestamp>/` with the full five-layer recording -- identical layout to ClawBench so a single analysis script handles both.
 
 **4. Matrix batch** (all eligible triples):
@@ -552,3 +555,12 @@ Open to contributions -- new harness adapters, leaderboard submissions, or evalu
     <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=reacher-z/HarnessBench&type=Date" />
   </picture>
 </a>
+
+### Native ClawBench CLI backend
+
+To use ClawBench's currently published `clawbench-run` entry point, select
+`harness-bench run --backend clawbench-cli` (also available for `batch`). This
+explicit backend runs ClawBench's own drivers for four shared harness names and
+requires its task format and workspace configuration. See
+[the native backend guide](docs/native-clawbench.md) for setup, judging, raw output
+and supported harnesses. The default plugin backend is unchanged.
