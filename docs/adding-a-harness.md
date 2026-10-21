@@ -67,7 +67,7 @@ Or, for an out-of-tree package, put the stanza in your own `pyproject.toml` and 
 
 ```bash
 harness-bench harnesses | grep my-harness
-harness-bench matrix --harnesses my-harness --models gpt-4o-mini
+harness-bench matrix --harness my-harness --model gpt-4o-mini --case fixtures/smoke.json
 harness-bench run --harness my-harness --model gpt-4o-mini --case fixtures/smoke.json
 ```
 

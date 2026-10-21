@@ -122,6 +122,12 @@ harness-bench harnesses
 # coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN
 ```
 
+**执行状态：**目前可以列出 Harness 元数据并预览 matrix。`run` 和非 dry-run `batch` 的默认 `plugin` 后端
+依赖尚未接入的 ClawBench 执行 API；仅升级 ClawBench 版本不能解决这一问题
+（[#8](https://github.com/reacher-z/HarnessBench/issues/8)）。本仓库还缺少 browser-use、
+Stagehand 和 Coze 的启动驱动（[#5](https://github.com/reacher-z/HarnessBench/issues/5)）。
+凭证状态 `ready` 不代表执行后端已可用。
+
 **2. 预览将要运行的 matrix**（无副作用）：
 
 ```bash
@@ -132,7 +138,7 @@ harness-bench matrix \
     --case    007-daily-life-travel-expedia
 ```
 
-**3. 端到端跑一组 triple：**
+**3. 单次执行命令（执行集成尚未完成）：**
 
 ```bash
 harness-bench run \
@@ -141,15 +147,17 @@ harness-bench run \
     --case    001-daily-life-food-uber-eats
 ```
 
-结果落在 `./harness-output/<harness>/<model>/<case>-<timestamp>/`，包含完整的五层录制 -- 目录结构和 ClawBench 完全一致，所以一份分析脚本两边通用。
+计划的输出目录为 `./harness-output/<harness>/<model>/<case>-<timestamp>/`。
+默认 plugin 后端尚不能生成这些录制结果。
 
-**4. Matrix 批跑**（跑完所有合格的 triple）：
+**4. Matrix 批处理命令**（执行集成尚未完成）：
 
 ```bash
 harness-bench batch \
     --harness openclaw --harness hermes --harness browser-use --harness claw-code \
     --model   claude-sonnet-4-6 \
-    --case    $(cat fixtures/lite.txt)
+    --case    001-daily-life-food-uber-eats \
+    --case    007-daily-life-travel-expedia
 ```
 
 **5. 渲染排行榜：**
