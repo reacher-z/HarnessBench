@@ -62,7 +62,10 @@ def harnesses_cmd() -> None:
 def matrix_cmd(harness: tuple[str, ...], model: tuple[str, ...], case: tuple[str, ...]) -> None:
     """Preview the (harness, model, case) triples a run would expand to."""
     cases = [{"id": c} for c in case]
-    specs = matrix_mod.expand(harness, model, cases)
+    try:
+        specs = matrix_mod.expand(harness, model, cases)
+    except KeyError as exc:
+        raise click.BadParameter(str(exc.args[0]), param_hint="--harness") from exc
     counts = matrix_mod.summarize(specs)
     click.echo(f"total={counts['total']} eligible={counts['eligible']} skipped={counts['skipped']}")
     for s in specs:
@@ -137,7 +140,10 @@ def batch_cmd(
 ) -> None:
     """Matrix-expand, then run every eligible triple."""
     cases = [{"id": c} for c in case]
-    specs = matrix_mod.expand(harness, model, cases)
+    try:
+        specs = matrix_mod.expand(harness, model, cases)
+    except KeyError as exc:
+        raise click.BadParameter(str(exc.args[0]), param_hint="--harness") from exc
     counts = matrix_mod.summarize(specs)
     click.echo(
         f"matrix: total={counts['total']} eligible={counts['eligible']} skipped={counts['skipped']}"
