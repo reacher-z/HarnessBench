@@ -108,7 +108,7 @@ uv tool install harness-bench && harness-bench
 git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harness-bench
 ```
 
-**前置依赖：** [Python 3.10+](https://python.org)、[uv](https://docs.astral.sh/uv/)，以及一个容器引擎 -- [Docker](https://www.docker.com/) **或** [Podman](https://podman.io/)。和 ClawBench 一样会自动探测；通过 `export CONTAINER_ENGINE=docker` 强制选择。
+**前置依赖：** [Python 3.11+](https://python.org)、[uv](https://docs.astral.sh/uv/)，以及一个容器引擎 -- [Docker](https://www.docker.com/) **或** [Podman](https://podman.io/)。和 ClawBench 一样会自动探测；通过 `export CONTAINER_ENGINE=docker` 强制选择。
 
 **1. 列出已注册的 Harness：**
 

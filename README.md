@@ -109,7 +109,7 @@ uv tool install harness-bench && harness-bench
 git clone https://github.com/reacher-z/HarnessBench.git && cd HarnessBench && uv run harness-bench
 ```
 
-**Prerequisites:** [Python 3.10+](https://python.org), [uv](https://docs.astral.sh/uv/), and a container engine -- [Docker](https://www.docker.com/) **or** [Podman](https://podman.io/). Same engine detection as ClawBench; force one with `export CONTAINER_ENGINE=docker`.
+**Prerequisites:** [Python 3.11+](https://python.org), [uv](https://docs.astral.sh/uv/), and a container engine -- [Docker](https://www.docker.com/) **or** [Podman](https://podman.io/). Same engine detection as ClawBench; force one with `export CONTAINER_ENGINE=docker`.
 
 **1. List registered harnesses:**
 
