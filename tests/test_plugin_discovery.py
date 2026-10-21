@@ -47,7 +47,7 @@ def test_cloud_harnesses_declare_credentials():
     assert "BROWSERBASE_API_KEY" in regs["stagehand"].spec.requires_credentials
     assert regs["coze-studio"].spec.requires_credentials, "coze-studio must declare credentials"
     required_coze = set(regs["coze-studio"].spec.requires_credentials)
-    assert {"COZE_INSTANCE_URL", "COZE_API_TOKEN"} <= required_coze
+    assert {"COZE_INSTANCE_URL", "COZE_API_TOKEN", "COZE_WORKFLOW_ID"} <= required_coze
 
 
 def test_local_harnesses_declare_no_credentials():

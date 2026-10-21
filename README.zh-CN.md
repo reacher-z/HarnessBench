@@ -119,7 +119,7 @@ harness-bench harnesses
 # claw-code      ready
 # browser-use    ready
 # stagehand      skipped: set BROWSERBASE_API_KEY
-# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN
+# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN, COZE_WORKFLOW_ID
 ```
 
 **2. 预览将要运行的 matrix**（无副作用）：
@@ -169,7 +169,7 @@ harness-bench leaderboard --results-dir ./harness-output/
 | `claw-code` | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | Rust | &mdash; | 原生 Rust agent 循环，无 GIL 并发。 |
 | `browser-use` | [browser-use/browser-use](https://github.com/browser-use/browser-use) | Python | &mdash; | 社区热门的 Playwright-based harness。 |
 | `stagehand` | [browserbase/stagehand](https://github.com/browserbase/stagehand) | Node/TS | **是** | BrowserBase 的 Stagehand -- 需要 `BROWSERBASE_API_KEY`。 |
-| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **是** | Coze Studio 流程执行器 -- 需要 `COZE_INSTANCE_URL` + `COZE_API_TOKEN`。 |
+| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **是** | Coze Studio 流程执行器 -- 需要 `COZE_INSTANCE_URL` + `COZE_API_TOKEN` + `COZE_WORKFLOW_ID`。 |
 
 云端 Harness **可选启用**：未提供凭证时在 matrix 中标记为 `skipped:missing_credential:<VAR>` -- **绝不会被静默记 0 分**。更多 Harness 通过独立 PR 加入；见 [`docs/scout-2026-04-16.md`](docs/scout-2026-04-16.md)。
 

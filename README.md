@@ -120,7 +120,7 @@ harness-bench harnesses
 # claw-code      ready
 # browser-use    ready
 # stagehand      skipped: set BROWSERBASE_API_KEY
-# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN
+# coze-studio    skipped: set COZE_INSTANCE_URL, COZE_API_TOKEN, COZE_WORKFLOW_ID
 ```
 
 **2. Preview a matrix** (no side effects):
@@ -226,7 +226,7 @@ https://github.com/user-attachments/assets/placeholder-browseruse-ubereats
 | `claw-code` | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | Rust | &mdash; | Rust-native agent loop, zero-GIL concurrency. |
 | `browser-use` | [browser-use/browser-use](https://github.com/browser-use/browser-use) | Python | &mdash; | Community-favorite Playwright-based harness. |
 | `stagehand` | [browserbase/stagehand](https://github.com/browserbase/stagehand) | Node/TS | **Yes** | BrowserBase's Stagehand -- requires `BROWSERBASE_API_KEY`. |
-| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **Yes** | Coze Studio flow runner -- requires `COZE_INSTANCE_URL` + `COZE_API_TOKEN`. |
+| `coze-studio` | [coze-dev/coze-studio](https://github.com/coze-dev/coze-studio) | Web | **Yes** | Coze Studio flow runner -- requires `COZE_INSTANCE_URL` + `COZE_API_TOKEN` + `COZE_WORKFLOW_ID`. |
 
 Cloud harnesses are **opt-in**: without credentials they appear in the matrix as `skipped:missing_credential:<VAR>` -- **never silently zeroed**. More harnesses land as follow-up PRs; see [`docs/scout-2026-04-16.md`](docs/scout-2026-04-16.md) for the global framework sweep.
 

@@ -36,6 +36,9 @@ Coze Studio workflows execute against a Coze instance — either self-hosted fro
    harness-bench run --harness coze-studio --model gpt-4o-mini --case fixtures/smoke.json
    ```
 
+All three Coze variables are required before launch. If the workflow ID is missing,
+the harness is skipped just as it is for a missing instance URL or API token.
+
 ## What "skipped" looks like
 
 With nothing set:
@@ -44,7 +47,7 @@ With nothing set:
 $ harness-bench matrix --harnesses stagehand,coze-studio,openclaw --models gpt-4o-mini
 harness       model         status
 stagehand     gpt-4o-mini   skipped:missing_credential:BROWSERBASE_API_KEY
-coze-studio   gpt-4o-mini   skipped:missing_credential:COZE_INSTANCE_URL
+coze-studio   gpt-4o-mini   skipped:missing_credential:COZE_INSTANCE_URL,COZE_API_TOKEN,COZE_WORKFLOW_ID
 openclaw      gpt-4o-mini   eligible
 ```
 
