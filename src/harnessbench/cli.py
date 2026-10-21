@@ -147,6 +147,12 @@ def batch_cmd(
             click.echo(f"{s.harness} {s.model} {s.case_id} -> {s.status}")
         return
 
+    # Credential-skipped cells need no execution backend or output directory.
+    if not counts["eligible"]:
+        for s in specs:
+            click.echo(f"skip: {s.harness} {s.model} {s.case_id} ({s.skip_reason})")
+        return
+
     try:
         from clawbench import run_case  # type: ignore[attr-defined]
     except ImportError:
