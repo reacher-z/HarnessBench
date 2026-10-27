@@ -1,0 +1,81 @@
+{
+  "test_case": "fixture-case",
+  "task_json_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "instruction": "PRIVATE_INSTRUCTION",
+  "model": "fixture-model",
+  "harness": "openclaw",
+  "thinking_level": null,
+  "temperature": null,
+  "max_tokens": null,
+  "email_used": "PRIVATE_EMAIL",
+  "timestamp": "2026-10-27T00:00:00Z",
+  "time_limit_minutes": 1,
+  "duration_seconds": 1,
+  "intercepted": true,
+  "result_category": "intercepted",
+  "failure_category": null,
+  "infra_failure": false,
+  "adjusted_eligible": true,
+  "infra_flags": [],
+  "run_metrics": {},
+  "usage": null,
+  "runtime": {
+    "container_engine": "synthetic-engine",
+    "container_engine_source": "auto",
+    "container_engine_version": "fixture",
+    "platform": "darwin",
+    "python_version": "3.11.15",
+    "base_image": "synthetic-image",
+    "harness_image": "synthetic-harness-image",
+    "base_image_id": "fixture-id",
+    "harness_image_id": "fixture-id"
+  },
+  "provenance": {
+    "clawbench": {
+      "commit": "07eb50a3d4c5a799f5ad4eebd57c67c10417787f"
+    }
+  },
+  "browser_runtime": null,
+  "task": {
+    "case_name": "fixture-case",
+    "input_path": "case",
+    "input_path_kind": "workspace",
+    "task_file": null,
+    "task_file_kind": null,
+    "task_dir": null,
+    "task_dir_kind": null,
+    "task_json_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "time_limit_minutes": 1,
+    "has_extra_info": false,
+    "extra_info_count": 0
+  },
+  "model_config": {
+    "model": "fixture-model",
+    "api_type": null,
+    "base_url": null,
+    "thinking_level": null,
+    "temperature": null,
+    "max_tokens": null,
+    "api_key_count": 1,
+    "sanitized_config_sha256": "5e4a6c6a468619f14c6c5aab1e359ca17fb57f813a7e235d0d84d8f2c5eff208"
+  },
+  "run_flags": {
+    "human": false,
+    "no_build": false,
+    "no_upload": true,
+    "harness": "openclaw",
+    "judge": null,
+    "no_judge": true,
+    "browser_runtime": "local",
+    "browser_cdp_url_provided": false,
+    "browser_runtime_options_provided": false,
+    "output_base": "test-output",
+    "output_base_kind": "workspace",
+    "output_dir": null,
+    "output_dir_kind": null,
+    "run_dir_name": null,
+    "container_name": null,
+    "novnc_host_port": null
+  },
+  "pass": true
+}

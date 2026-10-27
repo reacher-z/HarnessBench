@@ -7,11 +7,13 @@ Subcommands:
 ``harness-bench run``            execute a single (harness, model, case) triple
 ``harness-bench batch``          expand the matrix and execute each eligible triple
 ``harness-bench leaderboard``    render aggregated results as markdown
+``harness-bench native-report``  inventory native ClawBench attempt metadata
 ``harness-bench version``
 """
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 from pathlib import Path
@@ -21,6 +23,7 @@ import click
 from harnessbench import __version__
 from harnessbench import matrix as matrix_mod
 from harnessbench import leaderboard as lb_mod
+from harnessbench import native_report as native_mod
 
 
 @click.group(invoke_without_command=True)
@@ -180,6 +183,22 @@ def leaderboard_cmd(results_dir: Path) -> None:
     """Aggregate results under --results-dir into a markdown leaderboard."""
     rows = lb_mod.aggregate(lb_mod.load_results(results_dir))
     click.echo(lb_mod.render_markdown(rows))
+
+
+@main.command("native-report")
+@click.option(
+    "--results-dir", required=True,
+    type=click.Path(exists=True, file_okay=False, readable=True, path_type=Path),
+)
+@click.option("--format", "output_format", type=click.Choice(["markdown", "json"]),
+              default="markdown", show_default=True)
+def native_report_cmd(results_dir: Path, output_format: str) -> None:
+    """Inventory ClawBench run-meta.json attempts without computing benchmark scores."""
+    report = native_mod.inventory(results_dir)
+    if output_format == "json":
+        click.echo(json.dumps(report, indent=2))
+    else:
+        click.echo(native_mod.render_markdown(report))
 
 
 if __name__ == "__main__":

@@ -317,6 +317,8 @@ Each harness ships its own `Dockerfile` (3-file adapter: `Dockerfile` + `setup.s
 
 # <img src="static/icons/terminal.svg" width="28" height="28"> CLI
 
+For native ClawBench metadata, see the [read-only attempt inventory guide](docs/native-report.md).
+
 ```bash
 # List and gate
 harness-bench harnesses
@@ -332,6 +334,9 @@ harness-bench batch -h openclaw -h hermes -h browser-use -m claude-sonnet-4-6 -c
 
 # Render leaderboard markdown
 harness-bench leaderboard --results-dir ./harness-output/
+
+# Inventory native ClawBench run-meta.json attempts (raw flags, no scores)
+harness-bench native-report --results-dir ./test-output/ --format json
 ```
 
 <br/>
