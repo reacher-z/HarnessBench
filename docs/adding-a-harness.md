@@ -63,6 +63,22 @@ hb-my-harness = "harnessbench.harnesses.my_harness:spec"
 
 Or, for an out-of-tree package, put the stanza in your own `pyproject.toml` and `pip install .` it alongside `harness-bench`.
 
+HarnessBench reads installed `clawbench.harnesses` entry points for discovery
+and credential preflight. Entry points must export the local `HarnessSpec`
+shown above; required text fields must be nonempty, and credentials may be
+`None`, a list, or a tuple of nonempty environment-variable names. Source
+checkouts retain all six bundled harnesses without package installation.
+
+Discovery imports installed plugin code. Install only trusted packages, even
+when using a preview command. A failed import or invalid spec produces a warning
+with the entry-point name and exception class, without its exception message.
+External packages cannot replace bundled names. If multiple external entries
+claim the same spec name, all entries for that name are excluded with a warning;
+installation order never selects a winner.
+
+This enables discovery and matrix preflight only. Execution still depends on
+ClawBench exposing the plugin execution API used by `harness-bench run`.
+
 ## 5. Verify
 
 ```bash

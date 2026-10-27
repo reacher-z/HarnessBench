@@ -9,6 +9,8 @@ credentials are missing from the environment.
 from __future__ import annotations
 
 import os
+import warnings
+from importlib.metadata import entry_points
 from dataclasses import dataclass, field
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -50,11 +52,11 @@ class HarnessRegistration:
 
 
 def discover_registrations() -> list[HarnessRegistration]:
-    """Return all HarnessBench-bundled harness registrations.
+    """Discover installed specs, retaining bundled specs in source checkouts.
 
-    Once ClawBench ships the plugin surface, this delegates to
-    ``clawbench.harnesses.discover_harnesses``. Until then it imports the
-    six bundled modules directly so the CLI and tests are exercisable.
+    Loading entry points imports trusted installed Python packages. Conflicting
+    external names are excluded instead of allowing installation order to choose
+    a harness. Bundled names cannot be overridden by external packages.
     """
     from harnessbench.harnesses import (
         browser_use,
@@ -76,7 +78,61 @@ def discover_registrations() -> list[HarnessRegistration]:
                 requires_credentials=tuple(spec.requires_credentials or ()),
             )
         )
+    bundled = {reg.spec.name: reg for reg in out}
+    external: dict[str, list[HarnessRegistration]] = {}
+    for entry in sorted(entry_points(group="clawbench.harnesses"),
+                        key=lambda ep: (ep.name, ep.value)):
+        try:
+            spec = entry.load()
+            credentials = _validate_plugin_spec(spec)
+        except Exception as exc:
+            # Exception messages can contain credentials or private paths.
+            warnings.warn(
+                f"Ignoring harness entry point {entry.name!r}: {type(exc).__name__}",
+                RuntimeWarning, stacklevel=2,
+            )
+            continue
+        if spec.name in bundled:
+            if spec is not bundled[spec.name].spec:
+                warnings.warn(
+                    f"Ignoring harness entry point {entry.name!r}: bundled name {spec.name!r}",
+                    RuntimeWarning, stacklevel=2,
+                )
+            continue
+        external.setdefault(spec.name, []).append(HarnessRegistration(spec, credentials))
+    for name, registrations in sorted(external.items()):
+        if len(registrations) > 1:
+            warnings.warn(
+                f"Ignoring conflicting harness registrations for {name!r}",
+                RuntimeWarning, stacklevel=2,
+            )
+        else:
+            out.extend(registrations)
     return out
+
+
+def _validate_plugin_spec(spec: Any) -> tuple[str, ...]:
+    """Validate the local spec contract before a plugin affects preflight."""
+    from harnessbench.harnesses._schema import HarnessSpec
+
+    if not isinstance(spec, HarnessSpec):
+        raise TypeError("entry point must export a HarnessSpec")
+    for name in ("name", "description", "dockerfile", "setup_script", "run_script"):
+        value = getattr(spec, name)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("required fields must be nonempty strings")
+    if spec.runtime not in ("python", "node", "rust", "web"):
+        raise ValueError("unsupported runtime")
+    if spec.container_isolation not in ("shared", "dedicated"):
+        raise ValueError("unsupported container isolation")
+    credentials = spec.requires_credentials
+    if credentials is None:
+        return ()
+    if not isinstance(credentials, (list, tuple)) or any(
+        not isinstance(value, str) or not value.strip() for value in credentials
+    ):
+        raise TypeError("credentials must be a list or tuple of nonempty strings")
+    return tuple(credentials)
 
 
 def _by_name() -> dict[str, HarnessRegistration]:

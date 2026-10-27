@@ -25,6 +25,6 @@ class HarnessSpec:
     setup_script: str
     run_script: str
     container_isolation: Literal["shared", "dedicated"] = "dedicated"
-    requires_credentials: tuple[str, ...] = field(default_factory=tuple)
+    requires_credentials: tuple[str, ...] | list[str] | None = field(default_factory=tuple)
     upstream_url: str | None = None
     upstream_license: str | None = None
